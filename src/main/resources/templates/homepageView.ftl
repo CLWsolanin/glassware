@@ -1,3 +1,4 @@
+<#ftl encoding="utf-8">
 <!-- 
     Servlet che mi chiama: HomepageController
     attributi che mi passa: cup   -   glass
