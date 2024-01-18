@@ -36,7 +36,7 @@
             <#if (cupToUpdate??)><!--?? significa diverso da null -->
                 <div class="w3-card-4 w3-margin ">
                     <div class="w3-container">
-                        <h2>Cup to Update</h2>
+                        <h2>Cup to Update <a href="cupsadmin?unupdate=true"><button class="w3-button  w3-khaki">X</button></a> </h2>
                     </div>
                     <form id="formToMod" class="w3-container" action="cupsadmin" method="post">
                         <label>Material</label>
@@ -51,6 +51,7 @@
                         <label>Handle</label>
                         <br/>
                         <input class="w3-button w3-teal w3-margin"  type="submit" value="Update"/>
+                        <input type="hidden" name="id" value="${cupToUpdate.getId()}" />
                     </form>
                 </div>
             </#if>
