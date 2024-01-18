@@ -9,7 +9,7 @@
             <a href="homepage" class="w3-bar-item w3-button">Home</a>
             <a href="allglasses" class="w3-bar-item w3-button">Glasses</a>
             <a href="allcups" class="w3-bar-item w3-button">Cups</a>
-            <form action="serchbymat" method="get">
+            <form action="serchbymat" method="post">
                 <input name="k" type="text" class="w3-bar-item w3-input" placeholder="Search..">
                 <input type="submit" value="search"  class="w3-bar-item w3-button w3-khaki" />
             </form>

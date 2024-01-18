@@ -39,4 +39,10 @@ public class SearchByMatController extends HttpServlet
 
         req.getRequestDispatcher("/searchresult.ftl").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    
+        doGet(req,resp);
+    }
 }
