@@ -17,16 +17,14 @@ import com.generation.model.repositories.CupRepositoryMock;
 import com.generation.model.repositories.GlassRepositoryMock;
 import com.generation.model.repositories.GlasswareRepository;
 
-@WebServlet("/homepage")
-public class HomepageController extends HttpServlet
+@WebServlet("/serchbymat")
+public class SearchByMatController extends HttpServlet
 {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
-    {
-        //voglio il bicchiere e la tazza più costosa
-
-        //Parlo con il model, mi faccio arrivare tutti i bicchieri e tutte le tazze
-        GlasswareRepository<Cup> cupRepo = new CupRepositoryMock();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    
+        String searchKey = req.getParameter("k");
+         GlasswareRepository<Cup> cupRepo = new CupRepositoryMock();
         GlasswareRepository<Glass> glRepo = new GlassRepositoryMock();
 
         List<Glassware> products = new ArrayList<Glassware>();
@@ -34,7 +32,11 @@ public class HomepageController extends HttpServlet
         products.addAll(cupRepo.readAll());
         products.addAll(glRepo.readAll());
 
-        req.setAttribute("products", products);
-        req.getRequestDispatcher("/homepageView.ftl").forward(req, resp);
+        List<Glassware> filtered = products.stream().filter(p-> p.getMaterial().toLowerCase().contains(searchKey.toLowerCase())).toList();
+
+        req.setAttribute("filtered", filtered);
+        req.setAttribute("searchKey", searchKey);
+
+        req.getRequestDispatcher("/searchresult.ftl").forward(req, resp);
     }
 }

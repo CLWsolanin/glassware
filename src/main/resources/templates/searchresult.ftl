@@ -10,9 +10,9 @@
     </head>
     <body>
         <#include "navbar.ftl"/>
-        <h2 class="w3-center w3-khaki w3-text-teal w3-padding" style="margin:0px !important;">Our Shop</h2>
+        <h2 class="w3-center w3-khaki w3-text-teal w3-padding" style="margin:0px !important;">Your result for: ${searchKey}</h2>
         <div class="w3-row w3-margin-top" >
-            <#list products as prod>
+            <#list filtered as prod>
                 <div class="w3-col m3 l3 w3-padding">
                     <div class="w3-card-4 w3-center ">
 
