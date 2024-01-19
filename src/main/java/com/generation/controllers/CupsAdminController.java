@@ -100,9 +100,13 @@ public class CupsAdminController extends HttpServlet
         }
         else
         {
-            req.setAttribute("wrongPass", true);
-            req.getRequestDispatcher("/cupsadmin/passwordRequest.ftl").forward(req, resp);
+            if (password != null)
+                req.setAttribute("wrongPass", true);
+            req.setAttribute("source", "cups");
+            req.getRequestDispatcher("/passwordRequest.ftl").forward(req, resp);
         }
+
+
     }
 
 

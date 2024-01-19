@@ -6,7 +6,8 @@
     <body>
         <#include "/navbar.ftl"/>
         <h2 class="w3-margin">Insert Admin Credential</h2>
-        <form action="cupsadmin" method="get">
+        
+        <form action="${source}admin" method="get">
          <input class="w3-input w3-margin" name="username" type="text" placeholder="Username"/>
             <input class="w3-input w3-margin" name="password" type="password" placeholder="Password"/>
             <input class="w3-button w3-teal w3-margin"  type="submit" value="Login"/>
