@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.generation.model.entities.Cup;
+import com.generation.model.entities.User;
 import com.generation.model.repositories.CupRepositoryMock;
 import com.generation.model.repositories.GlasswareRepository;
+import com.generation.model.repositories.UserRepoMock;
 
 @WebServlet("/cupsadmin")
 public class CupsAdminController extends HttpServlet
@@ -74,32 +76,32 @@ public class CupsAdminController extends HttpServlet
     //metodo per gestire tutta la parte di login
     private void manageLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
     {
-        String passwordGiusta = "tazza";
-        String passwordInserita = req.getParameter("password");
-        String unupdate = req.getParameter("unupdate");
-        if(unupdate!=null)
-            passwordInserita=passwordGiusta;
+        UserRepoMock uRepo = new UserRepoMock();
+        CupRepositoryMock cRepo = new CupRepositoryMock();
 
-        if(passwordInserita==null)
+        if(req.getSession().getAttribute("user")!=null)
         {
-            req.setAttribute("wrongPass", false);
-            req.getRequestDispatcher("/cupsadmin/passwordRequest.ftl").forward(req, resp);
-            return;
-        }
-        //Mostrarne un altra se la password è corretta
-        if(passwordInserita.equals(passwordGiusta))
-        {
-            GlasswareRepository<Cup> cupRepo = new CupRepositoryMock();
-            req.setAttribute("cups", cupRepo.readAll());
+            req.setAttribute("cups", cRepo.readAll());
             req.getRequestDispatcher("/cupsadmin/adminPage.ftl").forward(req, resp);
             return;
         }
-        //Un'altra ancora se è sbagliata
-        if(!passwordInserita.equals(passwordGiusta))
+
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        User user = uRepo.login(username, password);
+
+        if(user!=null)
+        {
+            //getSessionFromMemoryForIdSpecifiedInTheRequest
+            req.getSession().setAttribute("user", user);
+            req.setAttribute("cups", cRepo.readAll());
+            req.getRequestDispatcher("/cupsadmin/adminPage.ftl").forward(req, resp);
+        }
+        else
         {
             req.setAttribute("wrongPass", true);
             req.getRequestDispatcher("/cupsadmin/passwordRequest.ftl").forward(req, resp);
-            return;
         }
     }
 

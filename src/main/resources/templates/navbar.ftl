@@ -15,6 +15,10 @@
                 <input name="k" type="text" class="w3-bar-item w3-input" placeholder="Search..">
                 <input type="submit" value="search"  class="w3-bar-item w3-button w3-khaki" />
             </form>
+
+            <#if (user??)>
+                <h3>BENVENUTO ${user.username} </h3>
+            </#if>
         </div>
     </body>
 </html>
